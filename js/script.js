@@ -213,6 +213,10 @@ const Scene = {
 		Scene.vars.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 		Scene.vars.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 	},
+	onMouseClick: (event) => {
+		console.log("Vous avez cliqué ici : x = " + ((event.clientX / window.innerWidth) * 2 - 1) + " y = " + -(event.clientY / window.innerHeight) * 2 + 1);
+		
+	},
 	init: () => {
 		let vars = Scene.vars;
 
@@ -369,6 +373,7 @@ const Scene = {
 
 		window.addEventListener('resize', Scene.onWindowResize, false);
 		window.addEventListener('mousemove', Scene.onMouseMove, false);
+		window.addEventListener('click', Scene.onMouseClick, false);
 
 		vars.stats = new Stats();
 		vars.container.appendChild(vars.stats.dom);
