@@ -137,6 +137,12 @@ const Scene = {
 						});
 					}
 
+					if (namespace === "knife") {
+						child.material = new THREE.MeshBasicMaterial({
+							map: Scene.vars.knifeTexture
+						});
+					}
+
 					child.material.color = new THREE.Color(color);
 				}
 			});
@@ -321,6 +327,7 @@ const Scene = {
 
 		vars.texture = new THREE.TextureLoader().load('./texture/marbre.jpg');
 		vars.moonTexture = new THREE.TextureLoader().load('./texture/moon.png');
+		vars.knifeTexture = new THREE.TextureLoader().load('./texture/knife.png');
 
 		let hash = document.location.hash.substr(1);
 		if (hash.length !== 0) {
