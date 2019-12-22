@@ -131,6 +131,12 @@ const Scene = {
 						})
 					}
 
+					if (namespace === "moon") {
+						child.material = new THREE.MeshBasicMaterial({
+							map: Scene.vars.moonTexture
+						});
+					}
+
 					child.material.color = new THREE.Color(color);
 				}
 			});
@@ -314,6 +320,7 @@ const Scene = {
 		vars.scene.add(sphere);
 
 		vars.texture = new THREE.TextureLoader().load('./texture/marbre.jpg');
+		vars.moonTexture = new THREE.TextureLoader().load('./texture/moon.png');
 
 		let hash = document.location.hash.substr(1);
 		if (hash.length !== 0) {
