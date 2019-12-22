@@ -16,7 +16,9 @@ const Scene = {
 		raycaster: new THREE.Raycaster(),
 		animSpeed: null,
 		animPercent: 0.00,
-		text: "DAWIN"
+		knifeNumbers: 0,
+		text: "Nombre de couteaux : 0" 
+
 	},
 	animate: () => {
 		requestAnimationFrame(Scene.animate);
@@ -25,7 +27,9 @@ const Scene = {
 		Scene.customAnimation();
 
 		if (Scene.vars.goldGroup !== undefined) {
-			let intersects = Scene.vars.raycaster.intersectObjects(Scene.vars.goldGroup.children, true);
+			let intersects = Scene.vars.raycaster.intersectObjects(Scene.vars.group2.children, true);
+
+
 
 			if (intersects.length > 0) {
 				Scene.vars.animSpeed = 0.05;
@@ -214,8 +218,23 @@ const Scene = {
 		Scene.vars.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 	},
 	onMouseClick: (event) => {
-		console.log("Vous avez cliqué ici : x = " + ((event.clientX / window.innerWidth) * 2 - 1) + " y = " + -(event.clientY / window.innerHeight) * 2 + 1);
+		Scene.addKnife();
+
+	},
+	addKnife: () => {
+		let vars = Scene.vars;
+		vars.knife.position.x = vars.wolf.position.x + Scene.getRandomInt(-50, 50);
+		vars.knife.position.z = vars.wolf.position.z + 150;
+		vars.knife.position.y = vars.wolf.position.y + 100 + Scene.getRandomInt(-50, 50);
+		vars.scene.add(vars.knife.clone());
+		vars.knifeNumbers++;
+		console.log(vars.knifeNumbers);
+		vars.text = "Nombre de couteaux : "+ vars.knifeNumbers;
+		console.log(vars.text);
 		
+	},
+	getRandomInt: (min, max) => {
+		return Math.random() * (max - min) + min;
 	},
 	init: () => {
 		let vars = Scene.vars;
@@ -341,15 +360,16 @@ const Scene = {
 
 		Scene.loadFBX("wolf.FBX", 0.3, [0, 0, -400], [0, 0, 45.5], 0x878787, 'wolf', () => {
 			Scene.loadFBX("Moon.fbx", 1, [200, 350, -400], [0, 0, 45.5], 0xFFFFFF, 'moon', () => {
-				Scene.loadFBX("Knife.fbx", 1, [0, 350, 0], [0, 0, 45.5], 0xFFFFFF, 'knife', () => {
+				Scene.loadFBX("Knife.fbx", 0.5, [0, 350, 0], [45.5, 0, 45.5], 0xFFFFFF, 'knife', () => {
 					Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
 						let vars = Scene.vars;
 						let group2 = new THREE.Group();
 						group2.add(vars.wolf);
 						group2.add(vars.moon)
 						vars.scene.add(group2);
+						vars.scene.add(vars.texte);
 
-						vars.scene.add(vars.knife);
+
 
 
 						// let elem = document.querySelector('#loading');
