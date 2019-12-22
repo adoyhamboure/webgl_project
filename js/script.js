@@ -327,65 +327,68 @@ const Scene = {
 					Scene.loadFBX("Socle_Partie2.FBX", 10, [0, 0, 0], [0, 0, 0], 0x1A1A1A, 'socle2', () => {
 						Scene.loadFBX("Plaquette.FBX", 10, [0, 4, 45], [0, 0, 0], 0xFFFFFF, 'plaquette', () => {
 							Scene.loadFBX("wolf.FBX", 0.3, [0, 0, -400], [0, 0, 45.5], 0xFFFFFF, 'wolf', () => {
-								Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
+								Scene.loadFBX("Moon.fbx", 1, [200, 350, -400], [0, 0, 45.5], 0xFFFFFF, 'moon', () => {
+									Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
 
 
-									let vars = Scene.vars;
+										let vars = Scene.vars;
 
-									let gold = new THREE.Group();
-									gold.add(vars.socle1);
-									gold.add(vars.socle2);
-									gold.add(vars.statuette);
-									gold.add(vars.logo);
-									gold.add(vars.texte);
-									gold.add(vars.plaquette);
+										let gold = new THREE.Group();
+										gold.add(vars.socle1);
+										gold.add(vars.socle2);
+										gold.add(vars.statuette);
+										gold.add(vars.logo);
+										gold.add(vars.texte);
+										gold.add(vars.plaquette);
 
-									let logo2 = vars.logo.clone();
-									logo2.rotation.z = Math.PI;
-									logo2.position.x = -45;
-									vars.logo2 = logo2;
-									gold.add(logo2);
-									gold.position.z = -50;
-									gold.position.y = 10;
-									vars.scene.add(gold);
-									vars.goldGroup = gold;
+										let logo2 = vars.logo.clone();
+										logo2.rotation.z = Math.PI;
+										logo2.position.x = -45;
+										vars.logo2 = logo2;
+										gold.add(logo2);
+										gold.position.z = -50;
+										gold.position.y = 10;
+										vars.scene.add(gold);
+										vars.goldGroup = gold;
 
-									let silver = gold.clone();
-									silver.position.set(-200, 10, 0);
-									silver.rotation.y = Math.PI / 4;
-									silver.children[2].traverse(node => {
-										if (node.isMesh) {
-											node.material = new THREE.MeshStandardMaterial({
-												color: new THREE.Color(0xC0C0C0),
-												metalness: .6,
-												roughness: .3
-											})
-										}
+										let silver = gold.clone();
+										silver.position.set(-200, 10, 0);
+										silver.rotation.y = Math.PI / 4;
+										silver.children[2].traverse(node => {
+											if (node.isMesh) {
+												node.material = new THREE.MeshStandardMaterial({
+													color: new THREE.Color(0xC0C0C0),
+													metalness: .6,
+													roughness: .3
+												})
+											}
+										});
+										vars.scene.add(silver);
+										vars.silverGroup = silver;
+
+										let bronze = gold.clone();
+										bronze.position.set(200, 10, 0);
+										bronze.rotation.y = -Math.PI / 4;
+										bronze.children[2].traverse(node => {
+											if (node.isMesh) {
+												node.material = new THREE.MeshStandardMaterial({
+													color: new THREE.Color(0xCD7F32),
+													metalness: .6,
+													roughness: .3
+												})
+											}
+										});
+
+										let group2 = new THREE.Group();
+										group2.add(vars.wolf);
+										group2.add(vars.moon)
+										vars.scene.add(group2);
+										vars.scene.add(bronze);
+										vars.bronzeGroup = bronze;
+
+										// let elem = document.querySelector('#loading');
+										// elem.parentNode.removeChild(elem);
 									});
-									vars.scene.add(silver);
-									vars.silverGroup = silver;
-
-									let bronze = gold.clone();
-									bronze.position.set(200, 10, 0);
-									bronze.rotation.y = -Math.PI / 4;
-									bronze.children[2].traverse(node => {
-										if (node.isMesh) {
-											node.material = new THREE.MeshStandardMaterial({
-												color: new THREE.Color(0xCD7F32),
-												metalness: .6,
-												roughness: .3
-											})
-										}
-									});
-									
-									let wolf1 = new THREE.Group();
-									wolf1.add(vars.wolf);
-									vars.scene.add(wolf1);
-									vars.scene.add(bronze);
-									vars.bronzeGroup = bronze;
-
-									// let elem = document.querySelector('#loading');
-									// elem.parentNode.removeChild(elem);
 								});
 							});
 						});
