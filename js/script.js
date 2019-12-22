@@ -330,19 +330,23 @@ const Scene = {
 
 		Scene.loadFBX("wolf.FBX", 0.3, [0, 0, -400], [0, 0, 45.5], 0x878787, 'wolf', () => {
 			Scene.loadFBX("Moon.fbx", 1, [200, 350, -400], [0, 0, 45.5], 0xFFFFFF, 'moon', () => {
-				Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
-					let vars = Scene.vars;
-					let group2 = new THREE.Group();
-					group2.add(vars.wolf);
-					group2.add(vars.moon)
-					vars.scene.add(group2);
+				Scene.loadFBX("Knife.fbx", 1, [0, 350, 0], [0, 0, 45.5], 0xFFFFFF, 'knife', () => {
+					Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
+						let vars = Scene.vars;
+						let group2 = new THREE.Group();
+						group2.add(vars.wolf);
+						group2.add(vars.moon)
+						vars.scene.add(group2);
+
+						vars.scene.add(vars.knife);
 
 
-					// let elem = document.querySelector('#loading');
-					// elem.parentNode.removeChild(elem);
+						// let elem = document.querySelector('#loading');
+						// elem.parentNode.removeChild(elem);
 					});
 				});
 			});
+		});
 
 
 		// ajout des controles
