@@ -17,7 +17,7 @@ const Scene = {
 		animSpeed: null,
 		animPercent: 0.00,
 		knifeNumbers: 0,
-		text: "Nombre de couteaux : 0" 
+		text: "Nombre de couteaux : 0"
 
 	},
 	animate: () => {
@@ -229,9 +229,13 @@ const Scene = {
 		vars.scene.add(vars.knife.clone());
 		vars.knifeNumbers++;
 		console.log(vars.knifeNumbers);
-		vars.text = "Nombre de couteaux : "+ vars.knifeNumbers;
+		vars.text = "Nombre de couteaux : " + vars.knifeNumbers;
 		console.log(vars.text);
-		
+		vars.scene.remove(vars.texte);
+		Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
+			vars.scene.add(vars.texte);
+		});
+
 	},
 	getRandomInt: (min, max) => {
 		return Math.random() * (max - min) + min;
